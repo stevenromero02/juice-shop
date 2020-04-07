@@ -9,24 +9,18 @@ FROM node:12-alpine
 
 # Create ubuntu user and directories for Labtainer
 
+# Add Bash to Alpine Linux
+
+RUN apk update
+RUN apk upgrade
+RUN apk add bash
+RUN apk add bash-completion
+
 RUN mkdir -p /home/ubuntu/.local/bin
 RUN mkdir -p /home/ubuntu/.local/zip
 RUN mkdir -p /home/root/.local/bin
 RUN mkdir -p /home/root/.local/zip
 RUN mkdir -p /home/root/.local/result
-
-#ENV USER=ubuntu
-#ENV UID=12345
-#ENV GID=23456
-
-#RUN adduser \
-#    --password "ubuntu" \
-#    --gecos "" \
-#    --home "/home/ubuntu" \
-#    --ingroup "$USER" \
-#    --no-create-home \
-#    --uid "$UID" \
-#    "$USER"
 
 # Create ubuntu user and directories for Labtainer
 
