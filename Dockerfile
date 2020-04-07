@@ -34,7 +34,7 @@ WORKDIR /juice-shop
 RUN addgroup juicer && \
     adduser -D -G juicer juicer
 RUN addgroup ubuntu && \
-    adduser -D -G -d /home/ubuntu ubuntu ubuntu
+    adduser -h /home/ubuntu -D -G ubuntu ubuntu
 COPY --from=installer --chown=juicer /juice-shop .
 RUN mkdir logs && \
     chown -R juicer logs && \
