@@ -15,24 +15,26 @@ RUN mkdir -p /home/root/.local/bin
 RUN mkdir -p /home/root/.local/zip
 RUN mkdir -p /home/root/.local/result
 
-ENV USER=ubuntu
-ENV UID=12345
-ENV GID=23456
+#ENV USER=ubuntu
+#ENV UID=12345
+#ENV GID=23456
 
-RUN adduser \
-    --password "ubuntu" \
-    --gecos "" \
-    --home "/home/ubuntu" \
-    --ingroup "$USER" \
-    --no-create-home \
-    --uid "$UID" \
-    "$USER"
+#RUN adduser \
+#    --password "ubuntu" \
+#    --gecos "" \
+#    --home "/home/ubuntu" \
+#    --ingroup "$USER" \
+#    --no-create-home \
+#    --uid "$UID" \
+#    "$USER"
 
 # Create ubuntu user and directories for Labtainer
 
 WORKDIR /juice-shop
 RUN addgroup juicer && \
     adduser -D -G juicer juicer
+RUN addgroup ubuntu && \
+    adduser -D -G -d /home/ubuntu ubuntu ubuntu
 COPY --from=installer --chown=juicer /juice-shop .
 RUN mkdir logs && \
     chown -R juicer logs && \
