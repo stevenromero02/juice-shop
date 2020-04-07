@@ -6,20 +6,17 @@ RUN npm dedupe
 RUN rm -rf frontend/node_modules
 
 FROM node:12-alpine
-ARG BUILD_DATE
-ARG VCS_REF
-LABEL maintainer="Bjoern Kimminich <bjoern.kimminich@owasp.org>" \
-    org.opencontainers.image.title="OWASP Juice Shop" \
-    org.opencontainers.image.description="Probably the most modern and sophisticated insecure web application" \
-    org.opencontainers.image.authors="Bjoern Kimminich <bjoern.kimminich@owasp.org>" \
-    org.opencontainers.image.vendor="Open Web Application Security Project" \
-    org.opencontainers.image.documentation="https://help.owasp-juice.shop" \
-    org.opencontainers.image.licenses="MIT" \
-    org.opencontainers.image.version="10.1.0" \
-    org.opencontainers.image.url="https://owasp-juice.shop" \
-    org.opencontainers.image.source="https://github.com/bkimminich/juice-shop" \
-    org.opencontainers.image.revision=$VCS_REF \
-    org.opencontainers.image.created=$BUILD_DATE
+
+# Create ubuntu user and directories for Labtainer
+
+RUN useradd -d /home/ubuntu -m -s /bin/bash ubuntu
+RUN echo ubuntu:ubuntu | chpasswd
+RUN mkdir -p /home/ubuntu/.local/bin
+RUN mkdir -p /home/ubuntu/.local/zip
+RUN mkdir -p /home/root/.local/bin
+RUN mkdir -p /home/root/.local/zip
+RUN mkdir -p /home/root/.local/result
+
 WORKDIR /juice-shop
 RUN addgroup juicer && \
     adduser -D -G juicer juicer
