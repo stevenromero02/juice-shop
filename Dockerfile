@@ -9,13 +9,26 @@ FROM node:12-alpine
 
 # Create ubuntu user and directories for Labtainer
 
-RUN useradd -d /home/ubuntu -m -s /bin/bash ubuntu
-RUN echo ubuntu:ubuntu | chpasswd
 RUN mkdir -p /home/ubuntu/.local/bin
 RUN mkdir -p /home/ubuntu/.local/zip
 RUN mkdir -p /home/root/.local/bin
 RUN mkdir -p /home/root/.local/zip
 RUN mkdir -p /home/root/.local/result
+
+ENV USER=ubuntu
+ENV UID=12345
+ENV GID=23456
+
+RUN adduser \
+    --password "ubuntu" \
+    --gecos "" \
+    --home "/home/ubuntu" \
+    --ingroup "$USER" \
+    --no-create-home \
+    --uid "$UID" \
+    "$USER"
+
+# Create ubuntu user and directories for Labtainer
 
 WORKDIR /juice-shop
 RUN addgroup juicer && \
